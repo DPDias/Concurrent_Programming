@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Dois.iml" filepath="$PROJECT_DIR$/Dois.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dois_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Dois_main.iml" group="Dois" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dois_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Dois_test.iml" group="Dois" />
+    </modules>
+  </component>
+</project>
