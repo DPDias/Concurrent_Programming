@@ -4,3 +4,9 @@ C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\Serie1\Um\Um\bin\Debug\Um.exe
 C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\Serie1\Um\Um\bin\Debug\Um.pdb
 C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\Serie1\Um\Um\obj\Debug\Um.exe
 C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\Serie1\Um\Um\obj\Debug\Um.pdb
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Um\bin\Debug\Um.exe.config
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Um\obj\Debug\Um.exe
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Um\obj\Debug\Um.pdb
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Um\bin\Debug\Um.exe
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Um\bin\Debug\Um.pdb
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Um\obj\Debug\Um.csprojResolveAssemblyReference.cache

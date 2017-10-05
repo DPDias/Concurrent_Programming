@@ -14,19 +14,90 @@ public class AppTest {
             this.pos = pos;
         }
     }
+
     @Test
     public void GetSameInstance2Threads() throws InterruptedException{
         TransferQueue <Contentor> tq = new TransferQueue<>();
         Contentor msg = new Contentor(-1);
+
+        //Coloca uma msg com método Transfer
         Thread a = new Thread(() -> {
             try {
-                tq.transfer(msg, 100000);
+                tq.transfer(msg, 10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
         Contentor [] answer = new Contentor[1];
+
+        //Vai buscar uma MSG e guarda no array answer
         Thread b = new Thread(() -> {
+            try {
+
+                tq.take(10000, answer);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        a.start();
+        b.start();
+
+        a.join();
+        b.join();
+
+        //verifica se a answer que a Thread foi buscar no Take é a mesma instãncia que foi colocada com o Transfer
+        Assert.assertEquals(msg, answer[0]);
+    }
+
+    @Test
+    public void checkPutSameInstance() throws InterruptedException {
+        TransferQueue <Contentor> tq = new TransferQueue<>();
+        Contentor msg = new Contentor(-1);
+        Thread a = new Thread(() -> {
+                tq.put(msg);
+        });
+        Contentor [] answer = new Contentor[1];
+        Thread b = new Thread(() -> {
+            try {
+                tq.take(10000, answer);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        a.start();
+        b.start();
+
+        a.join();
+        b.join();
+
+        Assert.assertEquals(msg, answer[0]); //validar que a thread foi buscar o mesmo objecto que foi colocado pelo PUT
+    }
+
+    @Test
+    public void checkPutDontBlock() throws InterruptedException {
+        TransferQueue <Contentor> tq = new TransferQueue<>();
+
+
+        // Thread A que irá bloquear-se mas fica na primeira posição da fila
+        Contentor msgTra = new Contentor(0);
+        Thread a = new Thread(() -> {
+            try {
+                tq.transfer(msgTra, 100000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Thread B que não se bloqueia e a msg fica na segunda posição da fila
+        Contentor msgPut = new Contentor(1);
+        Thread b = new Thread(() -> {
+            tq.put(msgPut);
+        });
+
+        // Thread C que vai buscar a primeira mensagem
+        Contentor [] answer = new Contentor[1];
+        Thread c = new Thread(() -> {
             try {
 
                 tq.take(100000, answer);
@@ -35,14 +106,29 @@ public class AppTest {
                 e.printStackTrace();
             }
         });
-        a.start();
-        Thread.sleep(5000);
-        b.start();
 
+        //Thread D que vai buscar a mensagem colocada pelo o PUT
+        Thread d = new Thread(() -> {
+            try {
+                tq.take(100000, answer);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        a.start();
+        b.start();
+        Thread.sleep(2000);
+        Assert.assertTrue(a.isAlive());         //observamos que a thread A, bloqueou no await, visto que usou o método Transfer
+        Assert.assertFalse(b.isAlive());        //observamos que a thread B, não bloqueou visto que usou o método PUT
+        c.start();
+        Thread.sleep(2000);
+        d.start();
 
         a.join();
         b.join();
+        d.join();
 
-        Assert.assertEquals(msg, answer[0]);
+        Assert.assertEquals(msgPut, answer[0]);  //validar que a última thread foi buscar o mesmo objecto que foi colocado pelo PUT
     }
 }

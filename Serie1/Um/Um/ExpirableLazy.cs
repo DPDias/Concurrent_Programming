@@ -11,14 +11,49 @@ public class ExpirableLazy<T> where T : class {
     private TimeSpan timeToLive;
     private Object mon;
     private T value;
+    private bool calculating;
+    private bool goToProvider;
     public T Value { 
         get{
-            lock (mon){
-                if (value != null && Environment.TickCount <= maxTickCount) 
-                    return value;    
-                //se ela se encontra null ou o tempo acabou, chamar o provider e aumentar o tempo de vida da variável
-                value = provider();
+            lock(mon)
+            {
+                while (true)
+                {
+                    if (value != null && Environment.TickCount <= maxTickCount)
+                        return value;
+                    //se ela se encontra null ou o tempo acabou, chamar o provider e aumentar o tempo de vida da variável
+                    if (calculating)
+                        Monitor.Wait(mon);
+                    else
+                    {
+                        calculating = true;
+                        break;
+                    }
+                    if (goToProvider)
+                        break;
+                }
+
+            }
+            T aux = null;
+            try
+            {
+                aux = provider();
+            }
+            catch (Exception e)
+            {
+                lock (mon)
+                {
+                    Monitor.Pulse(mon);     // verificar se tenho de por isto dentro de esclusão
+                    goToProvider = true;
+                }
+            }
+            lock (mon)
+            {
+                Monitor.PulseAll(mon);
+                value = aux;
                 maxTickCount = Environment.TickCount + timeToLive.Ticks;
+                calculating = false;
+                goToProvider = false;
                 return value;
             }
         }
@@ -40,28 +75,13 @@ public class ExpirableLazy<T> where T : class {
 }
 
 
-/*
-
-public T Value
-{
-    get
-    {
-        lock (mon)
-        {
-            if (valueAux != null) // e tempo
-                return valueAux;
-            while (calculating)
-                Monitor.Wait(mon);
-            if
-
-            calculating = true;
-        }
-        valueAux = provider();
-        calculating = false;
-        Monitor.Pulse(mon);
-        return valueAux;
-    }
-}
-
+/*     lock (mon){
+                if (value != null && Environment.TickCount <= maxTickCount) 
+                    return value;    
+                //se ela se encontra null ou o tempo acabou, chamar o provider e aumentar o tempo de vida da variável
+                value = provider();
+                maxTickCount = Environment.TickCount + timeToLive.Ticks;
+                return value;
+            }
 */
 

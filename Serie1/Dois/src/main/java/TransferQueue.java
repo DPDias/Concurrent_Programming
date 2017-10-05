@@ -6,21 +6,19 @@ import java.util.concurrent.locks.ReentrantLock;
 public class TransferQueue <T> {
     private final Lock lock = new ReentrantLock();
     private final NodeLinkedList<Message<T>> saveMsg = new NodeLinkedList<>();
-    private final Condition takeWait;
-
-    public TransferQueue() {
-        this.takeWait = lock.newCondition();
-    }
+    private final NodeLinkedList<TakeMessage<T>> takeList = new NodeLinkedList<>();
 
     public void put(T msg) {
-        Thread t = new Thread(() -> {
-            try {
-                transfer(msg, -1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }); // Infinito = -1 ??
-        t.start();
+        lock.lock();
+        try {
+            if (checkAndTransferToTake(msg)) return;
+
+            Condition condition = lock.newCondition();
+            NodeLinkedList.Node<Message<T>> node = saveMsg.push(new Message<>(false, condition, msg));
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     public boolean transfer(T msg, int timeout) throws InterruptedException {
@@ -30,12 +28,13 @@ public class TransferQueue <T> {
                 return false;
             }
 
-            long t = Timeouts.start(timeout);
-            long remaining = Timeouts.remaining(t);
+            if (checkAndTransferToTake(msg)) return true;
 
             Condition condition = lock.newCondition();
             NodeLinkedList.Node<Message<T>> node = saveMsg.push(new Message<>(false, condition, msg));
-            takeWait.signal();
+
+            long t = Timeouts.start(timeout);
+            long remaining = Timeouts.remaining(t);
 
             while(true) {
                 try {
@@ -64,11 +63,21 @@ public class TransferQueue <T> {
         }
     }
 
+    private boolean checkAndTransferToTake(T msg) {
+        if(!takeList.isEmpty() && saveMsg.isEmpty()){
+            NodeLinkedList.Node<TakeMessage<T>> node =  takeList.pull();
+            node.value.taked = true;
+            node.value.msg = msg;
+            node.value.condition.signal();
+            return true;
+        }
+        return false;
+    }
+
     public boolean take(int timeout, T [] rmsg) throws InterruptedException {
         lock.lock();
         try{
-
-            if (!saveMsg.isEmpty()) {
+            if (!saveMsg.isEmpty() && takeList.isEmpty()) {
                 NodeLinkedList.Node<Message<T>> aux = saveMsg.pull();
                 rmsg[0] = aux.value.msg;
                 aux.value.taked = true;
@@ -76,26 +85,35 @@ public class TransferQueue <T> {
                 return true;
             }
 
-            if (Timeouts.noWait(timeout)) {
+            if (Timeouts.noWait(timeout))
                 return false;
-            }
+
+            Condition condition = lock.newCondition();
+            NodeLinkedList.Node<TakeMessage<T>> node = takeList.push(new TakeMessage<>(false, condition));
 
             long t = Timeouts.start(timeout);
             long remaining = Timeouts.remaining(t);
 
             while (true) {
-                takeWait.await(remaining, TimeUnit.MILLISECONDS);
+                try {
+                    condition.await(remaining, TimeUnit.MILLISECONDS);
+                }catch(InterruptedException e){
+                    if(node.value.taked) {
+                        Thread.currentThread().interrupt();
+                        return true;
+                    }
+                    takeList.remove(node);
+                    throw e;
+                }
 
-                if (!saveMsg.isEmpty()) {
-                    NodeLinkedList.Node<Message<T>> aux = saveMsg.pull();
-                    rmsg[0] = aux.value.msg;
-                    aux.value.taked = true;
-                    aux.value.condition.signal();
+                if (node.value.taked ) {
+                    rmsg[0] = node.value.msg;
                     return true;
                 }
 
                 remaining = Timeouts.remaining(t);
                 if (Timeouts.isTimeout(remaining)) {
+                    takeList.remove(node);
                     return false;
                 }
             }
@@ -113,6 +131,17 @@ public class TransferQueue <T> {
             this.taked = taked;
             this.condition = condition;
             this.msg = msg;
+        }
+    }
+
+    public static class TakeMessage<T>{
+        public boolean taked;
+        public final Condition condition;
+        public T msg;
+
+        public TakeMessage(boolean taked, Condition condition) {
+            this.taked = taked;
+            this.condition = condition;
         }
     }
 }
