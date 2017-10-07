@@ -64,7 +64,7 @@ public class TransferQueue <T> {
     }
 
     private boolean checkAndTransferToTake(T msg) {
-        if(!takeList.isEmpty() && saveMsg.isEmpty()){
+        if(!takeList.isEmpty() && saveMsg.isEmpty()){ // acho que não necessito da segunda condição
             NodeLinkedList.Node<TakeMessage<T>> node =  takeList.pull();
             node.value.taked = true;
             node.value.msg = msg;

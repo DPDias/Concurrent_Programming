@@ -4,9 +4,17 @@
 import com.sun.org.apache.xpath.internal.operations.Equals;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.lang.reflect.Array;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
 public class AppTest {
+
     public static class Contentor{
         int pos;
 
@@ -16,7 +24,7 @@ public class AppTest {
     }
 
     @Test
-    public void GetSameInstance2Threads() throws InterruptedException{
+    public void getSameInstance2ThreadsTest() throws InterruptedException{
         TransferQueue <Contentor> tq = new TransferQueue<>();
         Contentor msg = new Contentor(-1);
 
@@ -51,7 +59,7 @@ public class AppTest {
     }
 
     @Test
-    public void checkPutSameInstance() throws InterruptedException {
+    public void putSameInstanceTest() throws InterruptedException {
         TransferQueue <Contentor> tq = new TransferQueue<>();
         Contentor msg = new Contentor(-1);
         Thread a = new Thread(() -> {
@@ -75,7 +83,7 @@ public class AppTest {
     }
 
     @Test
-    public void checkPutDontBlock() throws InterruptedException {
+    public void putDontBlockTest() throws InterruptedException {
         TransferQueue <Contentor> tq = new TransferQueue<>();
 
 
@@ -130,5 +138,125 @@ public class AppTest {
         d.join();
 
         Assert.assertEquals(msgPut, answer[0]);  //validar que a última thread foi buscar o mesmo objecto que foi colocado pelo PUT
+    }
+
+    @Test
+    public void timeoutTest() throws InterruptedException {
+        TransferQueue <Contentor> tq = new TransferQueue<>();
+        Contentor msg = new Contentor(-1);
+
+        boolean [] timeout = new boolean[2];
+
+        Thread a = new Thread(() -> {
+            try {
+                if(tq.transfer(msg, 1000))
+                    timeout[0] = true;
+                else timeout[0] = false;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        Contentor [] answer = new Contentor[1];
+        Thread b = new Thread(() -> {
+            try {
+
+                if(tq.take(1000, answer))
+                    timeout[1] = true;
+                else timeout[1] = false;
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        a.start();
+        Thread.sleep(1001);
+        b.start();
+
+        a.join();
+        b.join();
+
+        Assert.assertTrue(timeout[0] && timeout[1]);
+    }
+
+    @Test
+    public void interruptTest() throws InterruptedException {
+        TransferQueue <Contentor> tq = new TransferQueue<>();
+        Contentor msg = new Contentor(-1);
+
+        boolean [] interrupt = new boolean[]{false, false};
+
+        Thread a = new Thread(() -> {
+            try {
+                tq.transfer(msg, 10000);
+            } catch (InterruptedException e) {
+                interrupt[0] = true;
+            }
+        });
+
+        Contentor [] answer = new Contentor[1];
+        Thread b = new Thread(() -> {
+            try {
+                tq.take(10000, answer);
+            } catch (InterruptedException e) {
+                interrupt[1] = true;
+            }
+        });
+
+        a.start();
+        a.interrupt();
+        b.start();
+        b.interrupt();
+
+        a.join();
+        b.join();
+
+        Assert.assertTrue(interrupt[0] && interrupt[1]);
+    }
+
+    @Test
+    public void transferQueueTest() throws InterruptedException {
+        TransferQueue <Contentor> tq = new TransferQueue<>();
+        Thread [] threads = new Thread[2000];
+        Contentor [] msg = new Contentor[1000];
+        Supplier <Contentor> [] takes = new Supplier[1000];
+        int idxTakes = 0;
+
+        for(int i = 0; i < msg.length; i++)
+            msg[i] = new Contentor(i);
+
+        for(int i = 0; i < threads.length/2 ; i++) {
+            Contentor arg = msg[i];
+            threads[i] = new Thread(() -> {
+                try {
+                    tq.transfer(arg, 100000);
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+        }
+
+        for(int i = threads.length/2; i < threads.length ; i++) {
+            Contentor [] result = new Contentor[1];
+            takes[idxTakes++] = ()->result[0];
+            threads[i] = new Thread(() -> {
+                try {
+                    tq.take(100000, result);
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+
+        }
+
+        for(Thread i : threads)
+            i.start();
+
+        for(Thread i : threads)
+            i.join();
+
+        List<Contentor> messages = asList(msg);
+        for(Supplier<Contentor> response : takes)
+            Assert.assertTrue(messages.contains(response.get()));
     }
 }
