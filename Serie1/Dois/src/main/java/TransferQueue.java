@@ -64,7 +64,7 @@ public class TransferQueue <T> {
     }
 
     private boolean checkAndTransferToTake(T msg) {
-        if(!takeList.isEmpty() && saveMsg.isEmpty()){ // acho que não necessito da segunda condição
+        if(!takeList.isEmpty()){
             NodeLinkedList.Node<TakeMessage<T>> node =  takeList.pull();
             node.value.taked = true;
             node.value.msg = msg;
@@ -77,7 +77,7 @@ public class TransferQueue <T> {
     public boolean take(int timeout, T [] rmsg) throws InterruptedException {
         lock.lock();
         try{
-            if (!saveMsg.isEmpty() && takeList.isEmpty()) {
+            if (!saveMsg.isEmpty()) {
                 NodeLinkedList.Node<Message<T>> aux = saveMsg.pull();
                 rmsg[0] = aux.value.msg;
                 aux.value.taked = true;

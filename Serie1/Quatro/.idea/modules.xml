@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Quatro.iml" filepath="$PROJECT_DIR$/Quatro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Quatro_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Quatro_main.iml" group="Quatro" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Quatro_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Quatro_test.iml" group="Quatro" />
+    </modules>
+  </component>
+</project>
