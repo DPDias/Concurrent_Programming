@@ -27,13 +27,14 @@ public class SimpleThreadPoolExecutor{
         try {
 
             if (numberOfThreads < maxPoolSize) {
+                numberOfThreads ++;
                 NodeLinkedList.Node<ThreadContentor> node = runningThreads.push(new ThreadContentor(null, true, lock.newCondition()));
                 Thread run = new Thread(() -> threadWork(command, node));
                 node.value.thread = run;
                 return true;
             }
 
-            if(!blockedThreads.isEmpty()){      //poderei por fora do while
+            if(!blockedThreads.isEmpty()){
                 tasks.push(new Tasks(command, null, true));
                 NodeLinkedList.Node<ThreadContentor> aux = runningThreads.push(blockedThreads.pull().value);
                 aux.value.condition.signal();
@@ -47,7 +48,6 @@ public class SimpleThreadPoolExecutor{
             long remaining = Timeouts.remaining(t);
 
             while (true) {
-
                 try {
                     condition.await(remaining, TimeUnit.MILLISECONDS);  //lanço a exceção
                 } catch (InterruptedException e) {
@@ -82,12 +82,7 @@ public class SimpleThreadPoolExecutor{
 
                 if (!tasks.isEmpty()) {
 
-                    if(!node.value.running){  //método possivelmente
-                        NodeLinkedList.Node<ThreadContentor> aux = runningThreads.push(node.value);
-                        blockedThreads.remove(node);
-                        node = aux;
-                        node.value.running = true;
-                    }
+                    node = ifBlockedChangeToRunning(node);
 
                     NodeLinkedList.Node<Tasks> run = tasks.pull();
 
@@ -103,12 +98,7 @@ public class SimpleThreadPoolExecutor{
                     lock.lock();
                 }
                 else {
-                    if(node.value.running){     //método possivelmente
-                        NodeLinkedList.Node<ThreadContentor> aux = blockedThreads.push(node.value);
-                        runningThreads.remove(node);
-                        node = aux;
-                        node.value.running = false;
-                    }
+                    node = ifRunningChangeToBlocked(node);
                     try {
                         node.value.condition.await(remaining, TimeUnit.MILLISECONDS);  //tratar timer
                     } catch (InterruptedException e) {
@@ -129,6 +119,26 @@ public class SimpleThreadPoolExecutor{
         finally{
             lock.unlock();  //poderá não ter o lock???
         }
+    }
+
+    private NodeLinkedList.Node<ThreadContentor> ifBlockedChangeToRunning(NodeLinkedList.Node<ThreadContentor> node) {
+        if(!node.value.running){
+            NodeLinkedList.Node<ThreadContentor> aux = runningThreads.push(node.value);
+            blockedThreads.remove(node);
+            node = aux;
+            node.value.running = true;
+        }
+        return node;
+    }
+
+    private NodeLinkedList.Node<ThreadContentor> ifRunningChangeToBlocked(NodeLinkedList.Node<ThreadContentor> node) {
+        if(node.value.running){
+            NodeLinkedList.Node<ThreadContentor> aux = blockedThreads.push(node.value);
+            runningThreads.remove(node);
+            node = aux;
+            node.value.running = false;
+        }
+        return node;
     }
 
     public static class ThreadContentor{

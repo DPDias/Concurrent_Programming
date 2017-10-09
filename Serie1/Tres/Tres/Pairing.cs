@@ -1,37 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Tres
 {
     public class Pairing<T, U>
     {
-        private readonly LinkedList<Tuple<T, U>> pairList = new LinkedList<Tuple<T, U>>();
+        private readonly LinkedList<Container<T, U>> pairList = new LinkedList<Container<T, U>>();
         private readonly Object mon = new Object();
 
         public Tuple<T, U> Provide(T value, int timeout)
         {
-            Monitor.Enter(mon);         // verificar se tem problemas
+            Monitor.Enter(mon);        
             try
             {
-                if (pairList.Count > 0 && EqualityComparer<T>.Default.Equals(pairList.First.Value.t, default(T)))
+                if (pairList.Count > 0 && pairList.First.Value.uIsPresent)
                 {
-                    //remover 
-                    pairList.First.Value.t = value;
-                    pairList.First.Value.completed = true;
-                    LinkedListNode<Tuple<T, U>> a = pairList.First;
+                    LinkedListNode<Container<T, U>> a = pairList.First;
+                    pairList.RemoveFirst();
+                    a.Value.tuple.t = value;
+                    a.Value.tIsPresent = true;                
                     SyncUtils.Pulse(mon, a);
-                    return pairList.First.Value;
+                    return a.Value.tuple;
                 }
 
                 if (timeout == 0)
                     throw new TimeoutException();
 
-                LinkedListNode<Tuple<T, U>> node = pairList.AddLast(new Tuple<T, U>());
-                node.Value.t = value;
+                LinkedListNode<Container<T, U>> node = pairList.AddLast(new Container<T, U>(value)); 
+                             
 
                 //timer
 
@@ -43,18 +40,18 @@ namespace Tres
                     }
                     catch (ThreadInterruptedException e)
                     {
-                        if (node.Value.completed)
+                        if (node.Value.uIsPresent)
                         {
                             Thread.CurrentThread.Interrupt();
-                            return node.Value;
+                            return node.Value.tuple;
                         }
                         pairList.Remove(node);
                         throw;
                     }
 
-                    if (node.Value.completed)
+                    if (node.Value.uIsPresent)
                     {
-                        return node.Value;
+                        return node.Value.tuple;
                     }
 
                     //reajustar o tempo
@@ -72,21 +69,20 @@ namespace Tres
             Monitor.Enter(mon);         // verificar se tem problemas
             try
             {
-                if (pairList.Count > 0 && EqualityComparer<U>.Default.Equals(pairList.First.Value.u, default(U)))
+                if (pairList.Count > 0 && pairList.First.Value.tIsPresent)
                 {
-                    //remover 
-                    pairList.First.Value.u = value;
-                    pairList.First.Value.completed = true;
-                    LinkedListNode<Tuple<T, U>> a = pairList.First;
+                    LinkedListNode<Container<T, U>> a = pairList.First;
+                    pairList.RemoveFirst();
+                    a.Value.tuple.u = value;
+                    a.Value.uIsPresent = true;
                     SyncUtils.Pulse(mon, a);
-                    return pairList.First.Value;
+                    return a.Value.tuple;
                 }
 
                 if (timeout == 0)
                     throw new TimeoutException();
 
-                LinkedListNode<Tuple<T, U>> node = pairList.AddLast(new Tuple<T, U>());
-                node.Value.u = value;
+                LinkedListNode<Container<T, U>> node = pairList.AddLast(new Container<T, U>(value));
 
                 //timer
 
@@ -98,18 +94,18 @@ namespace Tres
                     }
                     catch (ThreadInterruptedException e)
                     {
-                        if (node.Value.completed)
+                        if (node.Value.tIsPresent)
                         {
                             Thread.CurrentThread.Interrupt();
-                            return node.Value;
+                            return node.Value.tuple;
                         }
                         pairList.Remove(node);
                         throw;
                     }
 
-                    if (node.Value.completed)
+                    if (node.Value.tIsPresent)
                     {
-                        return node.Value;
+                        return node.Value.tuple;
                     }
 
                     //reajustar o tempo
@@ -124,16 +120,38 @@ namespace Tres
 
 
 
+        public class Container<T, U>
+        {
+            public bool uIsPresent;
+            public bool tIsPresent;
+            public Tuple<T, U> tuple;
+            public Container(T t)
+            {
+                uIsPresent = false;
+                tIsPresent = true;
+                tuple = new Tuple<T, U>(t);
+            }
+
+            public Container(U u)
+            {
+                uIsPresent = true;
+                tIsPresent = false;
+                tuple = new Tuple<T, U>(u);
+            }
+        }
 
         public class Tuple<T, U>{
             public T t;
             public U u;
-            public bool completed;
-            public Tuple()
+            public Tuple(T t)
             {
-                this.t = default(T) ;
+                this.t = t ;
                 this.u = default(U);
-                completed = false;
+            }
+            public Tuple(U u)
+            {
+                this.t = default(T);
+                this.u = u;
             }
         }
     }
