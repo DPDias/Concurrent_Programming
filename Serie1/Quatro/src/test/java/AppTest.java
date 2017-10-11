@@ -5,8 +5,17 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+
+    @Test
+    public void OneThreadThreeTasks() throws InterruptedException {
+        SimpleThreadPoolExecutor a = new SimpleThreadPoolExecutor(1, 1000);
+        Integer [] test = new Integer[]{0};
+        Integer[] result = new Integer[3];
+        a.execute(()-> result[0] = test[0]++, 5000);
+        a.execute(()-> result[1] = test[0]++, 5000);
+        a.execute(()-> result[2] = test[0]++, 5000);
+        a.shutdown();
+        a.awaitTermination(100000);
+        int okapa = 0;
     }
 }

@@ -13,6 +13,7 @@ public class SimpleThreadPoolExecutor{
     private final NodeLinkedList<ThreadContentor> blockedThreads = new NodeLinkedList<>();
     private final NodeLinkedList<Tasks> tasks = new NodeLinkedList<>();
     private final Lock lock = new ReentrantLock();
+    private final Condition awaitTerminationThreads;
     private final int maxPoolSize;
     private final int keepAliveTime;
     private int numberOfThreads;
@@ -22,10 +23,11 @@ public class SimpleThreadPoolExecutor{
         numberOfThreads = 0;
         this.maxPoolSize = maxPoolSize;
         this.keepAliveTime = keepAliveTime;
+        awaitTerminationThreads = lock.newCondition();
     }
 
     public boolean execute(Runnable command, int timeout) throws InterruptedException {
-        if(shutdown)
+        if(shutdown)            //havera diferença por
             throw new RejectedExecutionException();
 
         lock.lock();
@@ -33,7 +35,8 @@ public class SimpleThreadPoolExecutor{
             if (numberOfThreads < maxPoolSize) {
                 numberOfThreads ++;
                 ThreadContentor threadContentor = new ThreadContentor(true, lock.newCondition());
-                new Thread(() -> threadWork(command, threadContentor));     //posso perder referência?
+                Thread created = new Thread(() -> threadWork(command, threadContentor));     //posso perder referência?
+                created.start();
                 return true;
             }
 
@@ -80,7 +83,30 @@ public class SimpleThreadPoolExecutor{
     }
 
     public boolean awaitTermination(int timeout){
-        return true;
+        long t = Timeouts.start(timeout);
+        long remaining = Timeouts.remaining(t);
+
+        lock.lock();
+        try{
+            while(true){
+                if(numberOfThreads==0 && shutdown){
+                    return true;
+                }
+                try {
+                    awaitTerminationThreads.await(remaining, TimeUnit.MILLISECONDS);
+                } catch (InterruptedException e) {
+
+                }
+
+                remaining = Timeouts.remaining(t);
+                if(Timeouts.isTimeout(remaining)) {
+                    return false;
+                }
+            }
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     private void threadWork(Runnable command, ThreadContentor threadContentor){
@@ -123,7 +149,8 @@ public class SimpleThreadPoolExecutor{
                     if (!threadContentor.running) {
                         remaining = Timeouts.remaining(t);          //poderei ter que sinalizar um monitor, para dizer que acabou tudo
                         if(Timeouts.isTimeout(remaining)) {
-                            numberOfThreads--;
+                            if(--numberOfThreads == 0 && shutdown)
+                                awaitTerminationThreads.signalAll();
                             blockedThreads.remove(node);
                             return;
                         }
