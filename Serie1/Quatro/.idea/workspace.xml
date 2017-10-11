@@ -32,13 +32,14 @@
       <file leaf-file-name="SimpleThreadPoolExecutor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/SimpleThreadPoolExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="10" column="3" lean-forward="false" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+            <state relative-caret-position="93">
+              <caret line="104" column="53" lean-forward="true" selection-start-line="104" selection-start-column="53" selection-end-line="104" selection-end-column="53" />
               <folding>
                 <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-                <element signature="method#ifBlockedChangeToRunning#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-                <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-                <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
+                <element signature="e#2995#2996#0" expanded="true" />
+                <element signature="e#3061#3062#0" expanded="true" />
+                <element signature="e#3112#3113#0" expanded="true" />
+                <element signature="e#3139#3140#0" expanded="true" />
                 <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
               </folding>
             </state>
@@ -76,6 +77,11 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>thread</find>
+    </findStrings>
   </component>
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
@@ -603,7 +609,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35065886" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19912152" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -627,7 +633,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/SimpleThreadPoolExecutor.java</url>
-          <line>19</line>
+          <line>21</line>
           <properties />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
@@ -670,9 +676,10 @@
           <caret line="41" column="13" lean-forward="false" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
           <folding>
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifBlockedChangeToRunning#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
+            <element signature="e#2995#2996#0" expanded="true" />
+            <element signature="e#3061#3062#0" expanded="true" />
+            <element signature="e#3112#3113#0" expanded="true" />
+            <element signature="e#3139#3140#0" expanded="true" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
         </state>
@@ -711,9 +718,10 @@
           <caret line="41" column="13" lean-forward="true" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
           <folding>
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifBlockedChangeToRunning#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
+            <element signature="e#2995#2996#0" expanded="true" />
+            <element signature="e#3061#3062#0" expanded="true" />
+            <element signature="e#3112#3113#0" expanded="true" />
+            <element signature="e#3139#3140#0" expanded="true" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
         </state>
@@ -752,9 +760,10 @@
           <caret line="95" column="53" lean-forward="true" selection-start-line="95" selection-start-column="53" selection-end-line="95" selection-end-column="53" />
           <folding>
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifBlockedChangeToRunning#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
+            <element signature="e#2995#2996#0" expanded="true" />
+            <element signature="e#3061#3062#0" expanded="true" />
+            <element signature="e#3112#3113#0" expanded="true" />
+            <element signature="e#3139#3140#0" expanded="true" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
         </state>
@@ -793,9 +802,10 @@
           <caret line="38" column="55" lean-forward="false" selection-start-line="38" selection-start-column="55" selection-end-line="38" selection-end-column="55" />
           <folding>
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifBlockedChangeToRunning#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
+            <element signature="e#2995#2996#0" expanded="true" />
+            <element signature="e#3061#3062#0" expanded="true" />
+            <element signature="e#3112#3113#0" expanded="true" />
+            <element signature="e#3139#3140#0" expanded="true" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
         </state>
@@ -834,9 +844,10 @@
           <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifBlockedChangeToRunning#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
+            <element signature="e#2995#2996#0" expanded="true" />
+            <element signature="e#3061#3062#0" expanded="true" />
+            <element signature="e#3112#3113#0" expanded="true" />
+            <element signature="e#3139#3140#0" expanded="true" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
         </state>
@@ -875,19 +886,12 @@
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifBlockedChangeToRunning#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
+            <element signature="e#2995#2996#0" expanded="true" />
+            <element signature="e#3061#3062#0" expanded="true" />
+            <element signature="e#3112#3113#0" expanded="true" />
+            <element signature="e#3139#3140#0" expanded="true" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -910,15 +914,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/SimpleThreadPoolExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="3" lean-forward="false" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+        <state relative-caret-position="93">
+          <caret line="104" column="53" lean-forward="true" selection-start-line="104" selection-start-column="53" selection-end-line="104" selection-end-column="53" />
           <folding>
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifBlockedChangeToRunning#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
+            <element signature="e#2995#2996#0" expanded="true" />
+            <element signature="e#3061#3062#0" expanded="true" />
+            <element signature="e#3112#3113#0" expanded="true" />
+            <element signature="e#3139#3140#0" expanded="true" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
         </state>
