@@ -43,7 +43,7 @@ public class ExpirableLazy<T> where T : class {
             {
                 lock (mon)
                 {
-                    Monitor.Pulse(mon);     // verificar se tenho de por isto dentro de esclusão
+                    Monitor.Pulse(mon);     // verificar se tenho de por isto dentro de exclusão
                     goToProvider = true;
                 }
             }

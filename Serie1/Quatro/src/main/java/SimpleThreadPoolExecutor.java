@@ -9,7 +9,6 @@ import static jdk.nashorn.internal.objects.NativeArray.push;
 
 public class SimpleThreadPoolExecutor{
 
-   // private final NodeLinkedList<ThreadContentor> runningThreads = new NodeLinkedList<>();
     private final NodeLinkedList<ThreadContentor> blockedThreads = new NodeLinkedList<>();
     private final NodeLinkedList<Tasks> tasks = new NodeLinkedList<>();
     private final Lock lock = new ReentrantLock();
@@ -27,24 +26,25 @@ public class SimpleThreadPoolExecutor{
     }
 
     public boolean execute(Runnable command, int timeout) throws InterruptedException {
-        if(shutdown)            //havera diferença por
-            throw new RejectedExecutionException();
-
         lock.lock();
         try {
-            if (numberOfThreads < maxPoolSize) {
-                numberOfThreads ++;
-                ThreadContentor threadContentor = new ThreadContentor(true, lock.newCondition());
-                Thread created = new Thread(() -> threadWork(command, threadContentor));     //posso perder referência?
-                created.start();
+
+            if(shutdown)
+                throw new RejectedExecutionException();
+
+            if(!blockedThreads.isEmpty()){
+                tasks.push(new Tasks(command, null, true));
+                ThreadContentor threadContentor = blockedThreads.pull().value;
+                threadContentor.condition.signal();
+                threadContentor.running = true;
                 return true;
             }
 
-            if(!blockedThreads.isEmpty()){
-                tasks.push(new Tasks(command, null, true));     //pode ser null?, ponho a lista na fila, ou meto no objecto threadContentor
-                ThreadContentor threadContentor = blockedThreads.pull().value;  // para fazer isso tinha que por um boolean para verificar se foi lhe dado trabalho
-                threadContentor.condition.signal();
-                threadContentor.running = true;         //para sinalizar que acordou
+            if (numberOfThreads < maxPoolSize) {
+                numberOfThreads ++;
+                ThreadContentor threadContentor = new ThreadContentor(true, lock.newCondition());
+                Thread created = new Thread(() -> threadWork(command, threadContentor));
+                created.start();
                 return true;
             }
 
@@ -79,10 +79,15 @@ public class SimpleThreadPoolExecutor{
     }
 
     public void shutdown(){
-        shutdown = true;        //não necessita de exclusão
+        lock.lock();
+        shutdown = true;
+        while(!blockedThreads.isEmpty()){
+            blockedThreads.pull().value.condition.signal();
+        }
+        lock.unlock();
     }
 
-    public boolean awaitTermination(int timeout){
+    public boolean awaitTermination(int timeout) throws InterruptedException {
         long t = Timeouts.start(timeout);
         long remaining = Timeouts.remaining(t);
 
@@ -92,11 +97,8 @@ public class SimpleThreadPoolExecutor{
                 if(numberOfThreads==0 && shutdown){
                     return true;
                 }
-                try {
-                    awaitTerminationThreads.await(remaining, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException e) {
 
-                }
+                awaitTerminationThreads.await(remaining, TimeUnit.MILLISECONDS);
 
                 remaining = Timeouts.remaining(t);
                 if(Timeouts.isTimeout(remaining)) {
@@ -122,16 +124,17 @@ public class SimpleThreadPoolExecutor{
 
                 if (!tasks.isEmpty()) {
 
-                    node = ifBlockedChangeToRunning(node);
+                    node = ifBlockedChangeToRunning(node);      //se calhar posso remover
 
                     NodeLinkedList.Node<Tasks> run = tasks.pull();
 
-                    if(!run.value.taked) {          //uma thread running pode roubar task de um thread blocked
+                    if(!run.value.taked) {
                         run.value.taked = true;
                         run.value.condition.signal();
                     }
 
                     lock.unlock();
+
                     run.value.runnable.run();        //poderá dar exceção?
 
                     t = Timeouts.start(keepAliveTime);
@@ -139,18 +142,29 @@ public class SimpleThreadPoolExecutor{
                     lock.lock();
                 }
                 else {
+
+                    if(shutdown){
+                        if(--numberOfThreads==0)
+                            awaitTerminationThreads.signalAll();
+                        return;
+                    }
+
                     node = ifRunningChangeToBlocked(node);
+
                     try {
-                        threadContentor.condition.await(remaining, TimeUnit.MILLISECONDS);  //tratar timer
+                        threadContentor.condition.await(remaining, TimeUnit.MILLISECONDS);
                     } catch (InterruptedException e) {
-                                //errado
+                        if(!threadContentor.running){
+                            blockedThreads.remove(node);
+                            numberOfThreads--;
+                            return;
+                        }
                     }
 
                     if (!threadContentor.running) {
-                        remaining = Timeouts.remaining(t);          //poderei ter que sinalizar um monitor, para dizer que acabou tudo
+                        remaining = Timeouts.remaining(t);
                         if(Timeouts.isTimeout(remaining)) {
-                            if(--numberOfThreads == 0 && shutdown)
-                                awaitTerminationThreads.signalAll();
+                            --numberOfThreads;
                             blockedThreads.remove(node);
                             return;
                         }
@@ -159,7 +173,7 @@ public class SimpleThreadPoolExecutor{
             }
         }
         finally{
-            lock.unlock();  //poderá não ter o lock???
+            lock.unlock();
         }
     }
 
@@ -183,8 +197,10 @@ public class SimpleThreadPoolExecutor{
     public static class ThreadContentor{
         public boolean running;
         public final Condition condition;
+        public boolean workGiven;
 
         public ThreadContentor(boolean running, Condition condition) {
+            workGiven = false;
             this.condition = condition;
             this.running = running;
         }

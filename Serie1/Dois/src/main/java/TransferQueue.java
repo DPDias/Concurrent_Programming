@@ -14,7 +14,7 @@ public class TransferQueue <T> {
             if (checkAndTransferToTake(msg)) return;
 
             Condition condition = lock.newCondition();
-            NodeLinkedList.Node<Message<T>> node = saveMsg.push(new Message<>(false, condition, msg));
+            saveMsg.push(new Message<>(false, condition, msg));
         }
         finally {
             lock.unlock();
