@@ -18,6 +18,13 @@ public class SimpleThreadPoolExecutor{
     private int numberOfThreads;
     private boolean shutdown = false;
 
+
+    /**
+     *
+     * @param maxPoolSize número máximo de threads que poderão estar criadas
+     * @param keepAliveTime tempo máximo, em segundos, que uma thread pode-se bloquear sem realizar trabalho, de seguida acaba
+     */
+
     public SimpleThreadPoolExecutor(int maxPoolSize, int keepAliveTime){
         numberOfThreads = 0;
         this.maxPoolSize = maxPoolSize;
@@ -29,9 +36,11 @@ public class SimpleThreadPoolExecutor{
         lock.lock();
         try {
 
+            //não recebe mais trabalho se é para trabalhar
             if(shutdown)
                 throw new RejectedExecutionException();
 
+            // verifica primeiro se exite threads bloqueadas para lhe darem trabalhos
             if(!blockedThreads.isEmpty()){
                 tasks.push(new Tasks(command, null, true));
                 ThreadContentor threadContentor = blockedThreads.pull().value;
@@ -40,6 +49,7 @@ public class SimpleThreadPoolExecutor{
                 return true;
             }
 
+            // de seguida, verifica se pode-se criar threads, para dar trabalho
             if (numberOfThreads < maxPoolSize) {
                 numberOfThreads ++;
                 ThreadContentor threadContentor = new ThreadContentor(true, lock.newCondition());
@@ -48,6 +58,7 @@ public class SimpleThreadPoolExecutor{
                 return true;
             }
 
+            //bloqueia-se a espera de trabalho
             Condition condition = lock.newCondition();
             NodeLinkedList.Node<Tasks> task = tasks.push(new Tasks(command, condition, false));
 
@@ -78,6 +89,9 @@ public class SimpleThreadPoolExecutor{
         }
     }
 
+    /**
+     * @function metodo para colocar o executor em modo shutting down. Se não houver blocked threads liberto-as
+     */
     public void shutdown(){
         lock.lock();
         shutdown = true;
@@ -88,17 +102,26 @@ public class SimpleThreadPoolExecutor{
     }
 
     public boolean awaitTermination(int timeout) throws InterruptedException {
+        lock.lock();
+
+        if(numberOfThreads==0 && shutdown){
+            return true;
+        }
+
+        if(timeout <= 0)
+            return false;
+
         long t = Timeouts.start(timeout);
         long remaining = Timeouts.remaining(t);
 
-        lock.lock();
         try{
             while(true){
+
+                awaitTerminationThreads.await(remaining, TimeUnit.MILLISECONDS);
+
                 if(numberOfThreads==0 && shutdown){
                     return true;
                 }
-
-                awaitTerminationThreads.await(remaining, TimeUnit.MILLISECONDS);
 
                 remaining = Timeouts.remaining(t);
                 if(Timeouts.isTimeout(remaining)) {
@@ -122,9 +145,8 @@ public class SimpleThreadPoolExecutor{
 
             while (true) {
 
+                //verifica se existe trabalho
                 if (!tasks.isEmpty()) {
-
-                    node = ifBlockedChangeToRunning(node);      //se calhar posso remover
 
                     NodeLinkedList.Node<Tasks> run = tasks.pull();
 
@@ -135,14 +157,16 @@ public class SimpleThreadPoolExecutor{
 
                     lock.unlock();
 
-                    run.value.runnable.run();        //poderá dar exceção?
+                    run.value.runnable.run();
 
                     t = Timeouts.start(keepAliveTime);
                     remaining = Timeouts.remaining(t);
+
                     lock.lock();
                 }
                 else {
 
+                    //verifico se é para terminar, se for decremento e saiu
                     if(shutdown){
                         if(--numberOfThreads==0)
                             awaitTerminationThreads.signalAll();
@@ -154,6 +178,7 @@ public class SimpleThreadPoolExecutor{
                     try {
                         threadContentor.condition.await(remaining, TimeUnit.MILLISECONDS);
                     } catch (InterruptedException e) {
+                        // se tenho o boolean running a true, é porque delegaram-me trabalho e não posso sair
                         if(!threadContentor.running){
                             blockedThreads.remove(node);
                             numberOfThreads--;
@@ -175,14 +200,6 @@ public class SimpleThreadPoolExecutor{
         finally{
             lock.unlock();
         }
-    }
-
-    private NodeLinkedList.Node<ThreadContentor> ifBlockedChangeToRunning(NodeLinkedList.Node<ThreadContentor> node) {
-        if(!node.value.running){
-            blockedThreads.remove(node);
-            node.value.running = true;
-        }
-        return node;
     }
 
     private NodeLinkedList.Node<ThreadContentor> ifRunningChangeToBlocked(NodeLinkedList.Node<ThreadContentor> node) {

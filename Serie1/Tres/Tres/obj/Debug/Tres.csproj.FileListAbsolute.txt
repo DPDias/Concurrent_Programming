@@ -7,3 +7,16 @@ C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\Serie1\Tres\Tres\obj\Debug\Tres.
 C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\Tres.exe.config
 C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\obj\Debug\Tres.exe
 C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\obj\Debug\Tres.pdb
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\obj\Debug\Tres.csprojResolveAssemblyReference.cache
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.abstractions.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.runner.visualstudio.testadapter.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.runner.reporters.net452.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.runner.utility.net452.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\Tres.exe
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\Tres.pdb
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.assert.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.core.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.execution.desktop.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.assert.xml
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.core.xml
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Tres\Tres\bin\Debug\xunit.execution.desktop.xml

@@ -27,10 +27,9 @@ namespace Tres
                 if (timeout == 0)
                     throw new TimeoutException();
 
-                LinkedListNode<Container<T, U>> node = pairList.AddLast(new Container<T, U>(value)); 
-                             
+                LinkedListNode<Container<T, U>> node = pairList.AddLast(new Container<T, U>(value));
 
-                //timer
+                var time = new TimeoutInstant(timeout);
 
                 while (true)
                 {
@@ -54,7 +53,11 @@ namespace Tres
                         return node.Value.tuple;
                     }
 
-                    //reajustar o tempo
+                    if (time.IsTimeout)
+                    {
+                        pairList.Remove(node);
+                        throw new TimeoutException();
+                    }
 
                 }
             }
@@ -84,13 +87,13 @@ namespace Tres
 
                 LinkedListNode<Container<T, U>> node = pairList.AddLast(new Container<T, U>(value));
 
-                //timer
+                var time = new TimeoutInstant(timeout);
 
                 while (true)
                 {
                     try
                     {
-                        SyncUtils.Wait(mon, node, timeout /* alterar*/);
+                        SyncUtils.Wait(mon, node, time.Remaining);
                     }
                     catch (ThreadInterruptedException e)
                     {
@@ -108,8 +111,11 @@ namespace Tres
                         return node.Value.tuple;
                     }
 
-                    //reajustar o tempo
-
+                    if (time.IsTimeout)
+                    {
+                        pairList.Remove(node);
+                        throw new TimeoutException();
+                    }
                 }
             }
             finally
@@ -117,8 +123,6 @@ namespace Tres
                 Monitor.Exit(mon);
             }
         }
-
-
 
         public class Container<T, U>
         {
@@ -138,21 +142,24 @@ namespace Tres
                 tIsPresent = false;
                 tuple = new Tuple<T, U>(u);
             }
-        }
+        }  
+    }
 
-        public class Tuple<T, U>{
-            public T t;
-            public U u;
-            public Tuple(T t)
-            {
-                this.t = t ;
-                this.u = default(U);
-            }
-            public Tuple(U u)
-            {
-                this.t = default(T);
-                this.u = u;
-            }
+    public class Tuple<T, U>
+    {
+        public T t;
+        public U u;
+        public Tuple(T t)
+        {
+            this.t = t;
+            this.u = default(U);
+        }
+        public Tuple(U u)
+        {
+            this.t = default(T);
+            this.u = u;
         }
     }
+
+    
 }

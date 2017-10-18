@@ -21,7 +21,8 @@ public class ExpirableLazy<T> where T : class {
                 {
                     if (value != null && Environment.TickCount <= maxTickCount)
                         return value;
-                    //se ela se encontra null ou o tempo acabou, chamar o provider e aumentar o tempo de vida da variável
+
+                    //se value se encontra null ou o tempo acabou, chamar o provider e aumentar o tempo de vida da variável
                     if (calculating)
                         Monitor.Wait(mon);
                     else
@@ -34,21 +35,29 @@ public class ExpirableLazy<T> where T : class {
                 }
 
             }
+
             T aux = null;
+            Boolean exception = false;
+
             try
             {
                 aux = provider();
             }
             catch (Exception e)
-            {
-                lock (mon)
-                {
-                    Monitor.Pulse(mon);     // verificar se tenho de por isto dentro de exclusão
-                    goToProvider = true;
-                }
+            {           
+                exception = true;
             }
+              
+            
             lock (mon)
             {
+                if (exception)
+                {
+                    Monitor.Pulse(mon);
+                    goToProvider = true;
+                    throw new InvalidOperationException();
+                }
+
                 Monitor.PulseAll(mon);
                 value = aux;
                 maxTickCount = Environment.TickCount + timeToLive.Ticks;
@@ -70,18 +79,7 @@ public class ExpirableLazy<T> where T : class {
         //monitor
         mon = new Object();       
                                   
-        value = null;   //devo iniciar a variavel?
+        value = null;   
     }      
 }
-
-
-/*     lock (mon){
-                if (value != null && Environment.TickCount <= maxTickCount) 
-                    return value;    
-                //se ela se encontra null ou o tempo acabou, chamar o provider e aumentar o tempo de vida da variável
-                value = provider();
-                maxTickCount = Environment.TickCount + timeToLive.Ticks;
-                return value;
-            }
-*/
 
