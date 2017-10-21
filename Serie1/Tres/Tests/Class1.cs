@@ -126,5 +126,47 @@ namespace Tests
 
             Assert.True(timeoutA && timeoutB);
         }
+
+        [Fact]
+        public void RemovingFromListWithTimeout()
+        {
+            Pairing<String, int> pair = new Pairing<string, int>();
+           
+            Boolean timeoutA = false;
+            Thread a = new Thread(() =>
+            {
+                try
+                {
+                    pair.Provide("String", 1000);
+                }
+                catch (TimeoutException e)
+                {
+                    timeoutA = true;
+                }
+            });
+            a.Start();
+            a.Join();
+
+            Tres.Tuple<String, int>[] results = new Tres.Tuple<string, int>[2];
+            Thread b = new Thread(() =>
+            {
+                results[0] = pair.Provide(9, 2000);       
+            });
+            b.Start();
+
+            Thread c = new Thread(() =>
+            {                
+                 results[1] = pair.Provide("Nove", 2000);                            
+            });
+            c.Start();
+         
+            b.Join();
+            c.Join();
+
+            Assert.True(timeoutA);
+            Assert.Equal(results[0], results[1]);
+            Assert.Equal("Nove", results[0].t);
+            Assert.Equal(9, results[0].u);
+        }
     }
 }

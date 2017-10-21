@@ -1,0 +1,17 @@
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.abstractions.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.runner.visualstudio.testadapter.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.runner.reporters.net452.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.runner.utility.net452.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\Tests.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\Tests.pdb
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\Um.exe
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.assert.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.core.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.execution.desktop.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\Um.pdb
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.assert.xml
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.core.xml
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\bin\Debug\xunit.execution.desktop.xml
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\obj\Debug\Tests.dll
+C:\Users\Diogo\Documents\Faculdade\5Semestre\PC\PC\Serie1\Um\Tests\obj\Debug\Tests.pdb

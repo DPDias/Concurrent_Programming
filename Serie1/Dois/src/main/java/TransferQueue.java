@@ -24,11 +24,11 @@ public class TransferQueue <T> {
     public boolean transfer(T msg, int timeout) throws InterruptedException {
         lock.lock();
         try{
+            if (checkAndTransferToTake(msg)) return true;
+
             if(Timeouts.noWait(timeout)) {
                 return false;
             }
-
-            if (checkAndTransferToTake(msg)) return true;
 
             Condition condition = lock.newCondition();
             NodeLinkedList.Node<Message<T>> node = saveMsg.push(new Message<>(false, condition, msg));

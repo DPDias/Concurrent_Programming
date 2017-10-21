@@ -90,7 +90,7 @@ public class SimpleThreadPoolExecutor{
     }
 
     /**
-     * @function metodo para colocar o executor em modo shutting down. Se não houver blocked threads liberto-as
+     * @function metodo para colocar o executor em modo shutting down. Se houver blocked threads liberto-as
      */
     public void shutdown(){
         lock.lock();
@@ -166,7 +166,7 @@ public class SimpleThreadPoolExecutor{
                 }
                 else {
 
-                    //verifico se é para terminar, se for decremento e saiu
+                    //verifico se é para terminar, se for, decremento e saiu
                     if(shutdown){
                         if(--numberOfThreads==0)
                             awaitTerminationThreads.signalAll();

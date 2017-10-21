@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Um", "Um\Um.csproj", "{CA3776A0-792C-489F-B02D-3694F23CD762}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesteDeSincronizadores", "TesteDeSincronizadores\TesteDeSincronizadores.csproj", "{E095DFA0-58CF-46B3-A772-CD5040A6BF6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{9B92D968-A048-4B4D-8B8E-CA9B73BFDE47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{CA3776A0-792C-489F-B02D-3694F23CD762}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA3776A0-792C-489F-B02D-3694F23CD762}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA3776A0-792C-489F-B02D-3694F23CD762}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E095DFA0-58CF-46B3-A772-CD5040A6BF6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E095DFA0-58CF-46B3-A772-CD5040A6BF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E095DFA0-58CF-46B3-A772-CD5040A6BF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E095DFA0-58CF-46B3-A772-CD5040A6BF6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B92D968-A048-4B4D-8B8E-CA9B73BFDE47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B92D968-A048-4B4D-8B8E-CA9B73BFDE47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B92D968-A048-4B4D-8B8E-CA9B73BFDE47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B92D968-A048-4B4D-8B8E-CA9B73BFDE47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

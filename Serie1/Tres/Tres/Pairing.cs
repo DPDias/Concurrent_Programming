@@ -35,7 +35,7 @@ namespace Tres
                 {
                     try
                     {
-                        SyncUtils.Wait(mon, node, timeout /* alterar*/);
+                        SyncUtils.Wait(mon, node, time.Remaining);
                     }
                     catch (ThreadInterruptedException e)
                     {
