@@ -1,11 +1,8 @@
-import java.util.LinkedList;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import static jdk.nashorn.internal.objects.NativeArray.push;
 
 public class SimpleThreadPoolExecutor{
 
@@ -20,7 +17,6 @@ public class SimpleThreadPoolExecutor{
 
 
     /**
-     *
      * @param maxPoolSize número máximo de threads que poderão estar criadas
      * @param keepAliveTime tempo máximo, em segundos, que uma thread pode-se bloquear sem realizar trabalho, de seguida acaba
      */
@@ -58,6 +54,9 @@ public class SimpleThreadPoolExecutor{
                 return true;
             }
 
+            if(timeout <=  0)
+                return false;
+
             //bloqueia-se a espera de trabalho
             Condition condition = lock.newCondition();
             NodeLinkedList.Node<Tasks> task = tasks.push(new Tasks(command, condition, false));
@@ -81,6 +80,7 @@ public class SimpleThreadPoolExecutor{
 
                 remaining = Timeouts.remaining(t);
                 if(Timeouts.isTimeout(remaining)) {
+                    tasks.remove(task);
                     return false;
                 }
             }
@@ -96,7 +96,9 @@ public class SimpleThreadPoolExecutor{
         lock.lock();
         shutdown = true;
         while(!blockedThreads.isEmpty()){
-            blockedThreads.pull().value.condition.signal();
+            ThreadContentor threadContentor = blockedThreads.pull().value;
+            threadContentor.condition.signal();
+            threadContentor.running = true;
         }
         lock.unlock();
     }
@@ -134,6 +136,10 @@ public class SimpleThreadPoolExecutor{
         }
     }
 
+    /**
+     * @param command runnable que a thread vai executar pela primeira vez
+     * @param threadContentor objecto que representa o estado da thread
+     */
     private void threadWork(Runnable command, ThreadContentor threadContentor){
         command.run();
         NodeLinkedList.Node<ThreadContentor> node = new NodeLinkedList.Node(threadContentor);
@@ -214,10 +220,8 @@ public class SimpleThreadPoolExecutor{
     public static class ThreadContentor{
         public boolean running;
         public final Condition condition;
-        public boolean workGiven;
 
         public ThreadContentor(boolean running, Condition condition) {
-            workGiven = false;
             this.condition = condition;
             this.running = running;
         }
@@ -234,8 +238,4 @@ public class SimpleThreadPoolExecutor{
             this.taked = taked;
         }
     }
-
-
-
-
 }
