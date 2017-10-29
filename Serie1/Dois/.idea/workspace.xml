@@ -32,8 +32,8 @@
       <file leaf-file-name="TransferQueue.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/TransferQueue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1002">
-              <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+            <state relative-caret-position="-340">
+              <caret line="71" column="24" lean-forward="false" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -269,7 +269,7 @@
         <entry key="$PROJECT_DIR$/../../../../4º Semestre/Modelação e Padrões de Desenho/mpd-2017-i41d" value="1495043981947" />
         <entry key="$PROJECT_DIR$/../../../../4º Semestre/Modelação e Padrões de Desenho/mpdg12/VibeHub" value="2984901765800" />
         <entry key="$PROJECT_DIR$/../../../../4º Semestre/Modelação e Padrões de Desenho/mpdg12/vibe" value="2984892906078" />
-        <entry key="$PROJECT_DIR$" value="4521324960545" />
+        <entry key="$PROJECT_DIR$" value="4527116645356" />
         <entry key="$PROJECT_DIR$/build.gradle" value="2579622142" />
         <entry key="$USER_HOME$/Downloads/Skype/MPD/MPD/mpd-2017-i41d" value="1491333744712" />
         <entry key="$USER_HOME$/Downloads/mpd-2017-i41d-master/mpd-2017-i41d-master" value="1493197662000" />
@@ -415,8 +415,6 @@
     </navigator>
     <panes>
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -460,6 +458,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -483,7 +483,27 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.AppTest">
+  <component name="RunManager" selected="JUnit.All in Dois_test">
+    <configuration name="All in Dois_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="Dois_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
     <configuration name="AppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="Dois_test" />
@@ -532,26 +552,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="AppTest" />
       <option name="METHOD_NAME" value="putDontBlockTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration name="AppTest.timeout" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="Dois_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="AppTest" />
-      <option name="METHOD_NAME" value="timeout" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -666,18 +666,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JUnit.AppTest" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.AppTest.timeout" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.AppTest.interrupt" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.AppTest.transferQueueTest" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.AppTest.putDontBlockTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.AppTest.interrupt" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.AppTest.transferQueueTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.AppTest.putDontBlockTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.All in Dois_test" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.AppTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.AppTest.putDontBlockTest" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.AppTest.transferQueueTest" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.AppTest.interrupt" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.AppTest.timeout" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.All in Dois_test" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.AppTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.AppTest.putDontBlockTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.AppTest.transferQueueTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.AppTest.interrupt" />
       </list>
     </recent_temporary>
   </component>
@@ -695,11 +695,11 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AppTest - 2017.10.07 at 21h 29m 25s.xml">
-      <configuration name="AppTest" configurationId="JUnit" />
+    <history-entry file="All_in_Dois_test - 2017.10.29 at 20h 47m 28s.xml">
+      <configuration name="All in Dois_test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AppTest - 2017.10.07 at 21h 29m 49s.xml">
-      <configuration name="AppTest" configurationId="JUnit" />
+    <history-entry file="All_in_Dois_test - 2017.10.29 at 20h 48m 38s.xml">
+      <configuration name="All in Dois_test" configurationId="JUnit" />
     </history-entry>
     <history-entry file="AppTest - 2017.10.18 at 18h 59m 38s.xml">
       <configuration name="AppTest" configurationId="JUnit" />
@@ -1191,8 +1191,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TransferQueue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1002">
-          <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+        <state relative-caret-position="-340">
+          <caret line="71" column="24" lean-forward="false" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

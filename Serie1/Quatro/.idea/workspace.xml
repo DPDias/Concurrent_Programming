@@ -22,19 +22,16 @@
       <file leaf-file-name="SimpleThreadPoolExecutor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/SimpleThreadPoolExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+            <state relative-caret-position="221">
+              <caret line="233" column="0" lean-forward="true" selection-start-line="233" selection-start-column="0" selection-end-line="233" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
                 <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-                <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
                 <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
                 <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
                 <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
                 <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-                <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-                <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
                 <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
                 <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
               </folding>
@@ -45,8 +42,8 @@
       <file leaf-file-name="AppTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/AppTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1309">
-              <caret line="86" column="18" lean-forward="false" selection-start-line="86" selection-start-column="18" selection-end-line="86" selection-end-column="18" />
+            <state relative-caret-position="379">
+              <caret line="39" column="16" lean-forward="false" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -428,8 +425,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -708,10 +705,10 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AppTest - 2017.10.26 at 18h 41m 33s.xml">
-      <configuration name="AppTest" configurationId="JUnit" />
+    <history-entry file="All_in_Quatro_test - 2017.10.29 at 20h 39m 29s.xml">
+      <configuration name="All in Quatro_test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AppTest - 2017.10.26 at 19h 00m 02s.xml">
+    <history-entry file="AppTest - 2017.10.29 at 20h 46m 45s.xml">
       <configuration name="AppTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="AppTest_invariantTest - 2017.10.18 at 19h 44m 33s.xml">
@@ -814,13 +811,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -869,13 +863,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -897,13 +888,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -971,13 +959,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -1018,13 +1003,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -1065,13 +1047,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -1112,13 +1091,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -1159,13 +1135,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -1206,13 +1179,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -1253,13 +1223,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>
@@ -1336,27 +1303,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/AppTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="86" column="18" lean-forward="false" selection-start-line="86" selection-start-column="18" selection-end-line="86" selection-end-column="18" />
+        <state relative-caret-position="379">
+          <caret line="39" column="16" lean-forward="false" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/SimpleThreadPoolExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+        <state relative-caret-position="221">
+          <caret line="233" column="0" lean-forward="true" selection-start-line="233" selection-start-column="0" selection-end-line="233" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#SimpleThreadPoolExecutor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#execute#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#shutdown#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="method#awaitTermination#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="docComment;method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#threadWork#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
-            <element signature="method#ifRunningChangeToBlocked#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#ThreadContentor#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
             <element signature="class#Tasks#0;class#SimpleThreadPoolExecutor#0" expanded="false" />
           </folding>

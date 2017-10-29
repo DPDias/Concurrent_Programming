@@ -154,6 +154,11 @@ public class SimpleThreadPoolExecutor{
                 //verifica se existe trabalho
                 if (!tasks.isEmpty()) {
 
+                    if(!node.value.running){
+                        blockedThreads.remove(node);
+                        node.value.running = true;
+                    }
+
                     NodeLinkedList.Node<Tasks> run = tasks.pull();
 
                     if(!run.value.taked) {

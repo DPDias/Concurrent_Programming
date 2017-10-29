@@ -69,7 +69,7 @@ namespace Tres
 
         public Tuple<T, U> Provide(U value, int timeout)
         {
-            Monitor.Enter(mon);         // verificar se tem problemas
+            Monitor.Enter(mon);         
             try
             {
                 if (pairList.Count > 0 && pairList.First.Value.tIsPresent)
