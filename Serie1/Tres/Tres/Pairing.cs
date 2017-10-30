@@ -149,6 +149,8 @@ namespace Tres
     {
         public T t;
         public U u;
+        public Tuple() { }
+
         public Tuple(T t)
         {
             this.t = t;

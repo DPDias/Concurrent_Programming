@@ -32,7 +32,7 @@ public class SimpleThreadPoolExecutor{
         lock.lock();
         try {
 
-            //não recebe mais trabalho se é para trabalhar
+            //não recebe mais trabalho se é para entrar em shutdown
             if(shutdown)
                 throw new RejectedExecutionException();
 
