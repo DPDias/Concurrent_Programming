@@ -26,7 +26,18 @@ namespace Um
 
                         //se value se encontra null ou o tempo acabou, chamar o provider e aumentar o tempo de vida da variável
                         if (calculating)
-                            Monitor.Wait(mon);
+                        {
+                            try
+                            {
+                                Monitor.Wait(mon);
+                            }
+                            catch (ThreadInterruptedException)
+                            {
+                                Monitor.Pulse(mon);
+                                throw;
+                            }
+
+                        }
                         else
                         {
                             calculating = true;
@@ -53,12 +64,16 @@ namespace Um
                 EnterUninterruptibly(mon, out interrupt);
                 try
                 {
-                    Monitor.PulseAll(mon);
+                  
                     calculating = false;
                     if (exception)
+                    {
+                        Monitor.Pulse(mon);
                         throw new InvalidOperationException();
+                    }
                     if (interrupt)
                         Thread.CurrentThread.Interrupt();
+                    Monitor.PulseAll(mon);
                     value = aux;
                     maxTickCount = DateTime.Now.Ticks + timeToLive.Ticks;
                     return value;
