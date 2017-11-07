@@ -2,8 +2,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ConcurrentQueue<T> {
     private static class Node <T> {
-        final T item;
-        final AtomicReference<Node<T>> next;
+        public final T item;
+        public final AtomicReference<Node<T>> next;
         public Node(T item, Node<T> next) {
             this.item = item;
             this.next = new AtomicReference<Node<T>>(next);
