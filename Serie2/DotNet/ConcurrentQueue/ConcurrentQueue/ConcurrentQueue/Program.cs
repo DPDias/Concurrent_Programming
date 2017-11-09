@@ -41,15 +41,13 @@ namespace ConcurrentQueue
 
                     if (tailNext != null)
                     {
-                        Interlocked.CompareExchange(ref tail, tailNext, curTail);
-                        //tail.compareAndSet(curTail, tailNext);
-
+                        Interlocked.CompareExchange(ref tail, tailNext, curTail);              
                     }
                     else
                     {
-                        if (Interlocked.CompareExchange(ref curTail.next, newNode, null) == null/*curTail.next.compareAndSet(null, newNode)*/)
+                        if (Interlocked.CompareExchange(ref curTail.next, newNode, null) == null)
                         {
-                            //tail.compareAndSet(curTail, newNode);
+                           
                             Interlocked.CompareExchange(ref tail, newNode, curTail);
                             return;
                         }
