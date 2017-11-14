@@ -2,7 +2,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ConcurrentQueue<T> {
     private static class Node <T> {
-        public final T item;
+        public T item;
         public final AtomicReference<Node<T>> next;
         public Node(T item, Node<T> next) {
             this.item = item;
@@ -50,7 +50,8 @@ public class ConcurrentQueue<T> {
             if(newHead == null)
                 return null;
         }while(!head.compareAndSet(oldHead, newHead));
-
-        return newHead.item;
+        T value = newHead.item;
+        newHead.item =  null;
+        return value;
     }
 }

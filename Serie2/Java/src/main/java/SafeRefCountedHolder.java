@@ -42,7 +42,7 @@ public class SafeRefCountedHolder<T> {
 
     public T getValue(){
         if(refCount.get() == 0)
-            throw new IllegalStateException();          //o get value pode vir a null?
+            throw new IllegalStateException();
         return value;
     }
 }
