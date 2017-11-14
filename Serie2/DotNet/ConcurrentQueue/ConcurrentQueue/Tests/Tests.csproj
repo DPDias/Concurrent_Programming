@@ -60,13 +60,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ConcurrentQueueTest.cs" />
+    <Compile Include="ExpirableLazyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConcurrentQueue\ConcurrentQueue.csproj">
       <Project>{292D3FA5-0B6E-4045-8389-2F098352F974}</Project>
       <Name>ConcurrentQueue</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExpirableLazy\ExpirableLazy.csproj">
+      <Project>{f420c4b8-4208-4e50-80f7-c96d45e9f5e9}</Project>
+      <Name>ExpirableLazy</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

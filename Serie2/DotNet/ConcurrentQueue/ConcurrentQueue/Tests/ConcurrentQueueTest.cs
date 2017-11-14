@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Tests
 {
-    public class Class1
+    public class ConcurrentQueueTest
     {
         [Fact]
         public void testMichaelScottQueue()
@@ -62,7 +62,7 @@ namespace Tests
                             Thread.Sleep(rnd.Next(MAX_CONSUME_TIME));
 
                     }
-                    catch (ThreadInterruptedException ie)
+                    catch (ThreadInterruptedException )
                     {
                         //do {} while (tid == 0);
                         break;
@@ -107,7 +107,7 @@ namespace Tests
 
 					    try {
 						    Thread.Sleep(rnd.Next(MAX_PRODUCE_INTERVAL));
-					    } catch (ThreadInterruptedException ie) {
+					    } catch (ThreadInterruptedException ) {
 						    //do {} while (tid == 0);
 						    break;
 					    }

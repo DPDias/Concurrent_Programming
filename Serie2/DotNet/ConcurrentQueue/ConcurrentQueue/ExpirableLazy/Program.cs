@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExpirableLazy
 {
-    class ExpirableLazy<T>
+    public class ExpirableLazy<T> where T : class
     {
 
         private readonly Func<T> provider;
@@ -18,6 +18,16 @@ namespace ExpirableLazy
         private volatile int calculating;
         private volatile int waiters;
 
+        public ExpirableLazy(Func<T> provider, TimeSpan timeToLive)
+        {
+            this.provider = provider;
+            this.timeToLive = timeToLive;
+            maxTimeToLive = 0;
+            value = null;
+            mon = new Object();
+            calculating = 0;
+            waiters = 0;
+        }
 
         public T Value
         {
@@ -32,6 +42,7 @@ namespace ExpirableLazy
                     try
                     {
                         waiters++;
+                        Thread.MemoryBarrier();
                         while (true)
                         {
                             if (value != null && DateTime.Now.Ticks < maxTimeToLive)
@@ -39,6 +50,7 @@ namespace ExpirableLazy
 
                             if (Interlocked.CompareExchange(ref calculating, 1, 0) != 0)
                                 break;
+                            Thread.MemoryBarrier();
                             try
                             {
                                 Monitor.Wait(mon);
@@ -59,6 +71,9 @@ namespace ExpirableLazy
                     Interlocked.CompareExchange(ref calculating, 0, 1);
                     return value;
                 }
+
+                Thread.MemoryBarrier();             //será que podia tirar?
+
                 Boolean exception = false;
                 try
                 {
@@ -72,7 +87,8 @@ namespace ExpirableLazy
                 {
                     maxTimeToLive = DateTime.Now.Ticks + timeToLive.Ticks;
                     Interlocked.CompareExchange(ref calculating, 0, 1);
-                    if(waiters > 0)
+                    Thread.MemoryBarrier();
+                    if (waiters > 0)
                     {
                         Monitor.Enter(mon); //interruptible
                         try
@@ -84,30 +100,34 @@ namespace ExpirableLazy
                             Monitor.Exit(mon);
                         }
                     }
-                    else
+                    return value;
+                }
+                else
+                {
+                    Interlocked.CompareExchange(ref calculating, 0, 1);
+                    Thread.MemoryBarrier();
+                    if (waiters > 0)
                     {
-                        Interlocked.CompareExchange(ref calculating, 0, 1);
-                        if (waiters > 0)
+                        Monitor.Enter(mon); //interruptible
+                        try
                         {
-                            Monitor.Enter(mon); //interruptible
-                            try
-                            {
-                                Monitor.Pulse(mon);
-                            }
-                            finally
-                            {
-                                Monitor.Exit(mon);
-                            }
+                            Monitor.Pulse(mon);
+                        }
+                        finally
+                        {
+                            Monitor.Exit(mon);
                         }
                     }
-
                 }
-                return value;
+                throw new InvalidOperationException();
             }
         }
+    }
 
-        
-        public ExpirableLazy(Func<T> provider, TimeSpan timeToLive)
+    public class Program
+    {
+
+        public static void Main(String[] args)
         {
 
         }
