@@ -7,7 +7,7 @@ namespace ConcurrentQueue
     {
         private class Node<T>
         {
-            public readonly T item;
+            public T item;
             public volatile Node<T> next;
             public Node(T item, Node<T> next)
             {
@@ -23,7 +23,7 @@ namespace ConcurrentQueue
         public ConcurrentQueue()
         {
             sentinel = new Node<T>(default(T), null);
-            sentinel = head = sentinel;
+            tail = head = sentinel;
         }
 
         public void put(T item)
@@ -72,8 +72,9 @@ namespace ConcurrentQueue
                 if (newHead == null)
                     return default(T);
             } while (Interlocked.CompareExchange(ref head, newHead, oldHead) != oldHead);
-
-            return newHead.item;
+            T value = newHead.item;
+            newHead.item = default(T);
+            return value;
         }
     }
 

@@ -10,22 +10,37 @@ namespace ExpirableLazy
     public class ExpirableLazy<T> where T : class
     {
 
+        public class AtomicPair
+        {
+            public T value;
+            public long maxTimeToLive;
+            public AtomicPair(T value, long maxTimeToLive)
+            {
+                this.value = value;
+                this.maxTimeToLive = maxTimeToLive;
+            }
+        }
+
+        public class AtomicPairCalculating : AtomicPair
+        {
+            public AtomicPairCalculating(T value, long maxTimeToLive) : base(value, maxTimeToLive) { }                
+        }
+
+
+
         private readonly Func<T> provider;
         private TimeSpan timeToLive;
-        private long maxTimeToLive;
-        private T value;
         private Object mon;
-        private volatile int calculating;
         private volatile int waiters;
+
+        private AtomicPair atomicPair;     
 
         public ExpirableLazy(Func<T> provider, TimeSpan timeToLive)
         {
             this.provider = provider;
             this.timeToLive = timeToLive;
-            maxTimeToLive = 0;
-            value = null;
+            atomicPair = new AtomicPair(null, 0);
             mon = new Object();
-            calculating = 0;
             waiters = 0;
         }
 
@@ -33,11 +48,18 @@ namespace ExpirableLazy
         {
             get
             {
-                if (value != null && DateTime.Now.Ticks < maxTimeToLive)
-                    return value;
-                Thread.MemoryBarrier();
-                if(Interlocked.CompareExchange(ref calculating, 1, 0) != 0)
+                AtomicPair ap = null;
+                while (true)
                 {
+                    ap = atomicPair;
+                    if (ap.value != null && DateTime.Now.Ticks < ap.maxTimeToLive)
+                        return ap.value;
+
+                    if (ap.GetType() == typeof(AtomicPairCalculating) || Interlocked.CompareExchange(ref atomicPair, new AtomicPairCalculating(null, 0), ap) == ap)
+                        break;
+                }
+
+                if(ap.GetType() == typeof(AtomicPairCalculating)) {              
                     Monitor.Enter(mon);
                     try
                     {
@@ -45,12 +67,14 @@ namespace ExpirableLazy
                         Thread.MemoryBarrier();
                         while (true)
                         {
-                            if (value != null && DateTime.Now.Ticks < maxTimeToLive)
-                                return value;
+                            ap = atomicPair;
+                            if (ap.value != null && DateTime.Now.Ticks < ap.maxTimeToLive)
+                                return ap.value;
 
-                            if (Interlocked.CompareExchange(ref calculating, 1, 0) != 0)
+                            if (ap.GetType() != typeof(AtomicPairCalculating) && Interlocked.CompareExchange(ref atomicPair, new AtomicPairCalculating(null, 0), ap) == ap)
                                 break;
-                            Thread.MemoryBarrier();
+
+                            Thread.MemoryBarrier();   //acho que posso retirar
                             try
                             {
                                 Monitor.Wait(mon);
@@ -66,60 +90,45 @@ namespace ExpirableLazy
                         waiters--;
                         Monitor.Exit(mon);
                     }
-                }
-                if (value != null && DateTime.Now.Ticks < maxTimeToLive) {
-                    Interlocked.CompareExchange(ref calculating, 0, 1);
-                    return value;
-                }
-
-                Thread.MemoryBarrier();             //será que podia tirar?
+                }                   
 
                 Boolean exception = false;
+                T value = null;
                 try
                 {
                     value = provider();
                 }
-                catch (Exception)
+                catch (Exception)       //se deu exceção o values está a null mesmo com finnaly block
                 {
                     exception = true;
                 }
-                if (!exception)
+
+                ap = new AtomicPair(value, DateTime.Now.Ticks + timeToLive.Ticks);
+
+                Interlocked.CompareExchange(ref atomicPair, ap, atomicPair);
+
+                if (waiters > 0)
                 {
-                    maxTimeToLive = DateTime.Now.Ticks + timeToLive.Ticks;
-                    Interlocked.CompareExchange(ref calculating, 0, 1);
-                    Thread.MemoryBarrier();
-                    if (waiters > 0)
+                    Monitor.Enter(mon); //interruptible
+                                        //podem entrar instruções para dentro da barreira
+                    try
                     {
-                        Monitor.Enter(mon); //interruptible
-                        try
+                        if (!exception)
                         {
                             Monitor.PulseAll(mon);
+                            return ap.value;                //poderá o tempo ter acabado??
                         }
-                        finally
-                        {
-                            Monitor.Exit(mon);
-                        }
+                        Monitor.Pulse(mon);
+                        throw new InvalidOperationException();
                     }
-                    return value;
-                }
-                else
-                {
-                    Interlocked.CompareExchange(ref calculating, 0, 1);
-                    Thread.MemoryBarrier();
-                    if (waiters > 0)
+                    finally
                     {
-                        Monitor.Enter(mon); //interruptible
-                        try
-                        {
-                            Monitor.Pulse(mon);
-                        }
-                        finally
-                        {
-                            Monitor.Exit(mon);
-                        }
+                        Monitor.Exit(mon);
                     }
                 }
-                throw new InvalidOperationException();
+                if(exception)
+                    throw new InvalidOperationException();
+                return ap.value;
             }
         }
     }
