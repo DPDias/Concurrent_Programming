@@ -64,7 +64,7 @@ namespace ExpirableLazy
                     try
                     {
                         waiters++;
-                        Thread.MemoryBarrier();
+                        Interlocked.MemoryBarrier();
                         while (true)
                         {
                             ap = atomicPair;
@@ -73,15 +73,13 @@ namespace ExpirableLazy
 
                             if (ap.GetType() != typeof(AtomicPairCalculating) && Interlocked.CompareExchange(ref atomicPair, new AtomicPairCalculating(null, 0), ap) == ap)
                                 break;
-
-                            Thread.MemoryBarrier();   //acho que posso retirar
                             try
                             {
                                 Monitor.Wait(mon);
                             }
                             catch (ThreadInterruptedException)
                             {
-                                Monitor.Pulse(mon); //devo usar um boolean?
+                                Monitor.Pulse(mon);                                             //devo usar um boolean?
                             }
                         }
                     }
@@ -98,7 +96,7 @@ namespace ExpirableLazy
                 {
                     value = provider();
                 }
-                catch (Exception)       //se deu exceção o values está a null mesmo com finnaly block
+                catch (Exception)       
                 {
                     exception = true;
                 }
@@ -116,7 +114,7 @@ namespace ExpirableLazy
                         if (!exception)
                         {
                             Monitor.PulseAll(mon);
-                            return ap.value;                //poderá o tempo ter acabado??
+                            return ap.value;                
                         }
                         Monitor.Pulse(mon);
                         throw new InvalidOperationException();
