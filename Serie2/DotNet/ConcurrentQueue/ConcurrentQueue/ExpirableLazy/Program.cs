@@ -104,13 +104,16 @@ namespace ExpirableLazy
                 ap = new AtomicPair(value, DateTime.Now.Ticks + timeToLive.Ticks);
 
                 Interlocked.CompareExchange(ref atomicPair, ap, atomicPair);
+                Boolean inte = false;
 
                 if (waiters > 0)
                 {
-                    Monitor.Enter(mon); //interruptible
-                                        //podem entrar instruções para dentro da barreira
+                    EnterUninterruptibly(mon, out inte);                                
                     try
                     {
+                        if (inte)
+                            Thread.CurrentThread.Interrupt();
+
                         if (!exception)
                         {
                             Monitor.PulseAll(mon);
@@ -129,7 +132,26 @@ namespace ExpirableLazy
                 return ap.value;
             }
         }
+
+        public void EnterUninterruptibly(object mon, out bool wasInterrupted)
+        {
+            wasInterrupted = false;
+            while (true)
+            {
+                try
+                {
+                    Monitor.Enter(mon);
+                    return;
+                }
+                catch (ThreadInterruptedException e)
+                {
+                    wasInterrupted = true;
+                }
+            }
+        }
     }
+
+
 
     public class Program
     {
