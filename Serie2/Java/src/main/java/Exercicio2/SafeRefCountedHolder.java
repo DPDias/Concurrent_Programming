@@ -1,10 +1,8 @@
+package Exercicio2;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SafeRefCountedHolder<T> {
-    public static interface IDisposable{
-        public void dispose();
-    }
-
     private T value;
     private AtomicInteger refCount;
 

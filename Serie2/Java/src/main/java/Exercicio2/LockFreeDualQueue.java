@@ -1,3 +1,5 @@
+package Exercicio2;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 public class LockFreeDualQueue<T> {

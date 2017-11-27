@@ -1,3 +1,5 @@
+package Exercicio1;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ConcurrentQueue<T> {
