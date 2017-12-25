@@ -26,12 +26,12 @@ public class SafeRefCountedHolder<T> {
         while(true) {
             count = refCount.get();
             if (count == 0)
-                throw new IllegalStateException();      // ver se pode ser esta exceção
+                throw new IllegalStateException();
             if (refCount.compareAndSet(count, count - 1))
                 break;
         }
         if(count == 1){
-            IDisposable disposable = (IDisposable)value;        //que classe uso? Posso criar uma interface
+            IDisposable disposable = (IDisposable)value;
             value = null;
             if(disposable != null)
                 disposable.dispose();

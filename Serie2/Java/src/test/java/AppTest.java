@@ -3,7 +3,7 @@
  */
 import Exercicio1.ConcurrentQueue;
 import Exercicio2.IDisposable;
-import Exercicio2.LockFreeDualQueue;
+import Exercicio4.LockFreeDualQueue;
 import Exercicio2.SafeRefCountedHolder;
 import org.junit.Assert;
 import org.junit.Test;

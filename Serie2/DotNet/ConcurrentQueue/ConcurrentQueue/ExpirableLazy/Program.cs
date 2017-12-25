@@ -108,6 +108,7 @@ namespace ExpirableLazy
 
                 if (waiters > 0)
                 {
+
                     EnterUninterruptibly(mon, out inte);                                
                     try
                     {
