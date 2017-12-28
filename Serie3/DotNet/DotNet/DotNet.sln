@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTAP", "ServerTAP\Serv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fileSearch", "fileSearch\fileSearch.csproj", "{C4999010-08BB-4AC3-BB20-1FE49A14A052}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AplicationSearchFiles", "AplicationSearchFiles\AplicationSearchFiles.csproj", "{B71E5A75-6AEF-4124-929E-20F91324EC56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C4999010-08BB-4AC3-BB20-1FE49A14A052}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4999010-08BB-4AC3-BB20-1FE49A14A052}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4999010-08BB-4AC3-BB20-1FE49A14A052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B71E5A75-6AEF-4124-929E-20F91324EC56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B71E5A75-6AEF-4124-929E-20F91324EC56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B71E5A75-6AEF-4124-929E-20F91324EC56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B71E5A75-6AEF-4124-929E-20F91324EC56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
