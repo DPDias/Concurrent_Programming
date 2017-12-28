@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTAP", "ServerTAP\ServerTAP.csproj", "{F4C4721D-111D-423E-B1B2-C8DCB88A9104}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fileSearch", "fileSearch\fileSearch.csproj", "{C4999010-08BB-4AC3-BB20-1FE49A14A052}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F4C4721D-111D-423E-B1B2-C8DCB88A9104}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4C4721D-111D-423E-B1B2-C8DCB88A9104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4C4721D-111D-423E-B1B2-C8DCB88A9104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4999010-08BB-4AC3-BB20-1FE49A14A052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4999010-08BB-4AC3-BB20-1FE49A14A052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4999010-08BB-4AC3-BB20-1FE49A14A052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4999010-08BB-4AC3-BB20-1FE49A14A052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
