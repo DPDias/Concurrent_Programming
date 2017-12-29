@@ -37,6 +37,7 @@ namespace Tracker
             MESSAGE_HANDLERS["GET"] = ProcessGetMessage;
             MESSAGE_HANDLERS["KEYS"] = ProcessKeysMessage;
             MESSAGE_HANDLERS["SHUTDOWN"] = Listener.Shutdown;
+            MESSAGE_HANDLERS["BGET"] = ProcessBGetMessage;
         }
 
         /// <summary>
@@ -52,6 +53,22 @@ namespace Tracker
             string value = cmd[2];
             Store.Instance.Set(key, value);
             wr.WriteAsync(String.Format("OK\n"));
+        }
+
+        private static async void ProcessBGetMessage(string [] cmd, StreamWriter wr, Logger log) {
+            if (cmd.Length - 1 != 2) {
+                wr.WriteLineAsync(String.Format("(error) wrong number of arguments (given {0}, expected 1)\n", cmd.Length - 1));
+            }
+            string value = Store.Instance.Get(cmd[1]);
+            if(value == null) {
+                await Task.Delay(int.Parse(cmd[2]));
+                value = Store.Instance.Get(cmd[1]);
+                if (value == null) {
+                    wr.WriteLine("(nil)\n");
+                    return;
+                }
+            }
+            wr.WriteLineAsync(String.Format("\"{0}\"\n", value));
         }
 
         /// <summary>

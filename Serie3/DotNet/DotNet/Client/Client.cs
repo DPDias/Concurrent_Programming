@@ -30,6 +30,8 @@ namespace TestClient
             }
         }
 
+
+
         private static string Get(string key)
         {
             using (TcpClient client = new TcpClient())
@@ -51,6 +53,32 @@ namespace TestClient
 					return null;
                 if(line.StartsWith("\"") && line.EndsWith("\""))
                 {
+                    return line.Substring(1, line.Length - 2);
+                }
+                throw new Exception("Invalid response format");
+            }
+        }
+
+
+        private static string BGet(string key) {
+            using (TcpClient client = new TcpClient()) {
+                int timeout = 1000;
+                client.Connect(IPAddress.Loopback, port);
+
+                StreamWriter output = new StreamWriter(client.GetStream());
+                StreamReader input = new StreamReader(client.GetStream());
+
+                // Send request type line
+                output.WriteLine("GET {0}", key);
+                output.Flush();
+                string line = input.ReadLine();
+                input.ReadLine();
+
+                output.Close();
+                client.Close();
+                if (line == "(nil)")
+                    return null;
+                if (line.StartsWith("\"") && line.EndsWith("\"")) {
                     return line.Substring(1, line.Length - 2);
                 }
                 throw new Exception("Invalid response format");
@@ -95,10 +123,12 @@ namespace TestClient
             	}
 			}
 			Console.WriteLine("--client connects to the server using port {0}", port);
-			string k1_value;
+            string k1_value;
+         //   Console.WriteLine("Get(\"k1\"): {0}", (k1_value = BGet("k1")) == null ? "undef" : k1_value);
             Console.WriteLine("Get(\"k1\"): {0}", (k1_value = Get("k1")) == null ? "undef" : k1_value);
             Set("k1", "v1");
             Console.WriteLine("Get(\"k1\"): {0}", (k1_value = Get("k1"))== null ? "undef" : k1_value);
+         //   Console.WriteLine("Get(\"k1\"): {0}", (k1_value = BGet("k1")) == null ? "undef" : k1_value);
             Shutdown();
             Console.ReadKey();
         }
