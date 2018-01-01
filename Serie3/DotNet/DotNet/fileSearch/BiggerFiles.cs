@@ -64,6 +64,7 @@ namespace fileSearch {
                 
             });
 
+
             foreach (DirectoryInfo aux in allDirs)
                 await SearchFiles(Task.Run(() => aux));
 

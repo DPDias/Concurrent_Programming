@@ -28,12 +28,7 @@ namespace fileSearch
 
             b.Wait();
             Console.WriteLine(bg.GetNumberOfFiles());
-            /*
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
-            stopWatch.Stop();
-            long duration = stopWatch.ElapsedMilliseconds;*/
-            int a = 0;
+          
         }
     }
 }

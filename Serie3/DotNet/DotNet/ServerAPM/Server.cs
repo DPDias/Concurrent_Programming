@@ -9,6 +9,7 @@
  *
  */
 
+using Servidor;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -207,7 +208,6 @@ namespace Tracker
         /// <param name="log"> The Logger instance to be used.</param>
         public void Run(Logger logg)
         {
-            
             try
             {
                 log = logg;
@@ -215,11 +215,7 @@ namespace Tracker
                 srv.Start();
                 srv.BeginAcceptTcpClient(OnAccept, null);
 
-
-
-                log.LogMessage("Listener - Waiting for connection requests.");
-                         
-                
+                log.LogMessage("Listener - Waiting for connection requests.");           
             }
             finally
             {
