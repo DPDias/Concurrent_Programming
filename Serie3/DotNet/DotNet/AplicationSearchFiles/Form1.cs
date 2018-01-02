@@ -27,6 +27,11 @@ namespace AplicationSearchFiles {
         }
 
         private async void button2_Click(object sender, EventArgs e) {
+            Process();
+           
+        }
+
+        private async void Process() {
             if(String.IsNullOrEmpty(textBox1.Text))
                 MessageBox.Show("Insira o path na caixa de texto ao lado da label 'dir path'");
 
@@ -39,8 +44,8 @@ namespace AplicationSearchFiles {
             button1.Enabled = true;
 
             Task searching = bf.Start();
-           
-            while(!searching.IsCanceled && !searching.IsCompleted && !searching.IsFaulted) {
+
+            while (!searching.IsCanceled && !searching.IsCompleted && !searching.IsFaulted) {
                 FileInfo[] aux1 = bf.getBiggerFiles();
                 foreach(var a in aux1) {
                     if (a != null) {

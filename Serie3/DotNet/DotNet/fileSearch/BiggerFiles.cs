@@ -35,12 +35,18 @@ namespace fileSearch {
 
             ParallelOptions options = new ParallelOptions { CancellationToken = ct };
 
-            DirectoryInfo di = await dir;
+            DirectoryInfo di = await dir.ConfigureAwait(false);
             FileInfo[] allFiles = await Task.Run( () => di.GetFiles());    
             DirectoryInfo[] allDirs = await Task.Run( () => di.GetDirectories());
 
             Interlocked.Add(ref numberOfFiles, allFiles.Length);
-     
+
+            Task[] allTasksDir = new Task[allDirs.Length];
+            int k = 0;
+            foreach (DirectoryInfo aux in allDirs) {
+                allTasksDir[k++] = SearchFiles(Task.Run(() => aux));
+            }       
+
             Parallel.For(0, allFiles.Length, options, (i, loopState) => {
                 if (ct.IsCancellationRequested) {
                     return;
@@ -68,10 +74,7 @@ namespace fileSearch {
                 
             });
 
-
-            foreach (DirectoryInfo aux in allDirs)
-                await SearchFiles(Task.Run(() => aux));
-
+            await Task.WhenAll(allTasksDir);  
         }
 
         public int GetNumberOfFiles() {
