@@ -32,15 +32,19 @@ namespace fileSearch {
         private async Task SearchFiles(Task<DirectoryInfo> dir) {
             if (ct.IsCancellationRequested)
                 return;
+
+            ParallelOptions options = new ParallelOptions { CancellationToken = ct };
+
             DirectoryInfo di = await dir;
             FileInfo[] allFiles = await Task.Run( () => di.GetFiles());    
             DirectoryInfo[] allDirs = await Task.Run( () => di.GetDirectories());
 
             Interlocked.Add(ref numberOfFiles, allFiles.Length);
      
-            Parallel.For(0, allFiles.Length, (i) => {
-                if (ct.IsCancellationRequested)
+            Parallel.For(0, allFiles.Length, options, (i, loopState) => {
+                if (ct.IsCancellationRequested) {
                     return;
+                }
                 if (idx < maxFiles.Length) {
                     lock (mon) {
                         if (idx < maxFiles.Length) {
