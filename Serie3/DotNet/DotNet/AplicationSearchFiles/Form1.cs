@@ -46,7 +46,7 @@ namespace AplicationSearchFiles {
             Task searching = bf.Start();
 
             while (!searching.IsCanceled && !searching.IsCompleted && !searching.IsFaulted) {
-                FileInfo[] aux1 = bf.getBiggerFiles();
+                List <FileInfo> aux1 = bf.getBiggerFiles();
                 foreach(var a in aux1) {
                     if (a != null) {
                         ListViewItem item1 = new ListViewItem(a.FullName);
@@ -61,7 +61,7 @@ namespace AplicationSearchFiles {
 
             listView1.Items.Clear();
                    
-            FileInfo[] aux = bf.getBiggerFiles();
+            List<FileInfo> aux = bf.getBiggerFiles();
             foreach (var a in aux) {
                 ListViewItem item1 = new ListViewItem(a.FullName);
                 item1.SubItems.Add("" + a.Length);

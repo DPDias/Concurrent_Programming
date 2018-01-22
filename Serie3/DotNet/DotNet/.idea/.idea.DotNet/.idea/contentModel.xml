@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Faculdade\5_Semestre\PC\PC\Serie3\DotNet\DotNet" t="IncludeFlat">
+      <e p="AplicationSearchFiles" t="IncludeRecursive">
+        <e p="AplicationSearchFiles.csproj" t="IncludeRecursive" />
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Form1.cs" t="Include" />
+        <e p="Form1.Designer.cs" t="Include" />
+        <e p="Form1.resx" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="Resources.Designer.cs" t="Include" />
+          <e p="Resources.resx" t="Include" />
+          <e p="Settings.Designer.cs" t="Include" />
+          <e p="Settings.settings" t="Include" />
+        </e>
+      </e>
+      <e p="Client" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Client.cs" t="Include" />
+        <e p="Client.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="DotNet.sln" t="IncludeFlat" />
+      <e p="fileSearch" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="BiggerFiles.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="fileSearch.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="ServerAPM" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="generic-async-result.cs" t="Include" />
+        <e p="Logger.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Server.cs" t="Include" />
+        <e p="ServerAPM.csproj" t="IncludeRecursive" />
+        <e p="Store.cs" t="Include" />
+      </e>
+      <e p="ServerTAP" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Logger.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Server.cs" t="Include" />
+        <e p="ServerTAP.csproj" t="IncludeRecursive" />
+        <e p="Store.cs" t="Include" />
+      </e>
+    </e>
+    <e p="C:\Users\Diogo Dias\.Rider2017.3\system\resharper-host\local\Transient\ReSharperHost\v11\SolutionCaches\_DotNet.-1947649027.00" t="ExcludeRecursive" />
+  </component>
+</project>
