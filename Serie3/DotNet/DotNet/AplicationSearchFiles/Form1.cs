@@ -47,26 +47,34 @@ namespace AplicationSearchFiles {
 
             while (!searching.IsCanceled && !searching.IsCompleted && !searching.IsFaulted) {
                 List <FileInfo> aux1 = bf.getBiggerFiles();
-                foreach(var a in aux1) {
-                    if (a != null) {
-                        ListViewItem item1 = new ListViewItem(a.FullName);
-                        item1.SubItems.Add("" + a.Length);
-                        listView1.Items.Add(item1);
+                if (aux1 != null)
+                {
+                    listView1.Items.Clear();
+                    foreach (var a in aux1)
+                    {
+                        if (a != null)
+                        {
+                            ListViewItem item1 = new ListViewItem(a.FullName);
+                            item1.SubItems.Add("" + a.Length);
+                            listView1.Items.Add(item1);
+                        }
                     }
                 }
-
                 await Task.Delay(50).ConfigureAwait(true);
+               
+            }
+            List<FileInfo> aux = bf.getBiggerFiles();
+            if (aux != null)
+            {
                 listView1.Items.Clear();
+                foreach (var a in aux)
+                {
+                    ListViewItem item1 = new ListViewItem(a.FullName);
+                    item1.SubItems.Add("" + a.Length);
+                    listView1.Items.Add(item1);
+                }
             }
 
-            listView1.Items.Clear();
-                   
-            List<FileInfo> aux = bf.getBiggerFiles();
-            foreach (var a in aux) {
-                ListViewItem item1 = new ListViewItem(a.FullName);
-                item1.SubItems.Add("" + a.Length);
-                listView1.Items.Add(item1);
-            }
             textBox3.Text = "" + bf.GetNumberOfFiles();
 
             button2.Enabled = true;

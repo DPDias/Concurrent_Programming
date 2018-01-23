@@ -15,6 +15,7 @@ namespace fileSearch {
         private Comparer<FileInfo> com;
         private int NumberMaxFiles;
         private CancellationToken ct;
+        private Boolean ArrayChanged = false;
 
         public BiggerFiles(String dirPath, int maxFiles, CancellationToken ct) {
             this.dirPath = dirPath;
@@ -52,27 +53,28 @@ namespace fileSearch {
             {
                 if (ct.IsCancellationRequested)
                 {
-                    return partial;
+                    loopState.Stop();
                 }
                 if (partial.Count < NumberMaxFiles)
                     partial.Add(i);
                 else
                     if (i.Length > partial[0].Length)
-                        partial[0] = i;
-                partial.OrderBy(a => a.Length);
-                return partial;
+                        partial[0] = i;            
+                return partial.OrderBy(a => a.Length).ToList();
             },
             partial => {
+                
+                
                 lock (mon)
                 {
-                    var newArray = partial.Concat(maxFiles).OrderByDescending(a => a.Length).ToArray();
-                    for (int i = 0; i < NumberMaxFiles && i < newArray.Length; i++)
-                    {
-                        if(maxFiles.Count < NumberMaxFiles)
-                            maxFiles.Add(newArray[i]);
-                        else
-                            maxFiles[i] = newArray[i];
-                    }
+                    if (maxFiles.Count == 0 || maxFiles.Last().Length < partial.Last().Length)
+                        ArrayChanged = true;
+                    else return;     
+                  
+                    var newArray = partial.Concat(maxFiles).OrderByDescending(a => a.Length).ToList();
+                    if (newArray.Count > NumberMaxFiles)
+                        maxFiles = newArray.GetRange(0, NumberMaxFiles);
+                    else maxFiles = newArray;
                 }
             });
 
@@ -87,7 +89,12 @@ namespace fileSearch {
             List<FileInfo> ret = new List<FileInfo>();
             lock (mon)
             {
-                 maxFiles.ForEach(a => ret.Add(a));          
+                if (ArrayChanged)
+                {
+                    ArrayChanged = false;
+                    maxFiles.ForEach(a => ret.Add(a));
+                }
+                else return null;
             }
             return ret;
         }
