@@ -1,1 +1,1 @@
-Repository that containts concurrent programs.
+Repository that contains concurrent programs.
