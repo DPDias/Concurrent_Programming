@@ -1,1 +1,1 @@
-# PC
+Repository that containts concurrent programs.
